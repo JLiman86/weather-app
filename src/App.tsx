@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+import { IconType } from "react-icons";
+
 import {
   IoMdSunny,
   IoMdRainy,
@@ -24,8 +26,13 @@ import { ImSpinner8 } from "react-icons/im";
 
 const APIkey = "7478ace9dbf0d1f0e01be727c41388c6";
 
+type WeatherTypes = {
+  [key: string]: unknown;
+  weather: { description: string; icon: string; id: number; main: string }[];
+};
+
 function App() {
-  const [data, setData] = useState<null | object>(null);
+  const [data, setData] = useState<null | WeatherTypes>(null);
   const [location, setLocation] = useState("Warsaw");
 
   useEffect(() => {
@@ -44,7 +51,33 @@ function App() {
     );
   }
 
-  return <div>Hello World</div>;
+  let icon = <IoMdSunny />;
+
+  switch (data.weather[0].main) {
+    case "Clouds":
+      icon = <IoMdCloudy />;
+      break;
+    case "Haze":
+      icon = <BsCloudHaze2Fill />;
+      break;
+    case "Rain":
+      icon = <IoMdRainy />;
+      break;
+    case "Clear":
+      icon = <IoMdSunny />;
+      break;
+    case "Drizzle":
+      icon = <BsCloudDrizzleFill />;
+      break;
+    case "Snow":
+      icon = <IoMdSnow />;
+      break;
+    case "Thunderstorm":
+      icon = <IoMdThunderstorm />;
+      break;
+  }
+
+  return <div>{icon}</div>;
 }
 
 export default App;
