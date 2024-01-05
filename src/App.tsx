@@ -19,19 +19,32 @@ import {
   BsWind,
 } from "react-icons/bs";
 
-import {TbTemperatureCelsius} from 'react-icons/tb'
-import {ImSpinner8} from 'react-icons/im'
+import { TbTemperatureCelsius } from "react-icons/tb";
+import { ImSpinner8 } from "react-icons/im";
 
-
-const APIkey = '7478ace9dbf0d1f0e01be727c41388c6'
+const APIkey = "7478ace9dbf0d1f0e01be727c41388c6";
 
 function App() {
+  const [data, setData] = useState<null | object>(null);
+  const [location, setLocation] = useState("Warsaw");
 
-  const [data, setData] = useState([])
-  const [location,setLocation] = useState('')
+  useEffect(() => {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${APIkey}`;
 
+    axios.get(url).then((res) => setData(res.data));
+  }, [location]);
 
-  return <div className="bg-red-200">Hello World</div>;
+  if (!data) {
+    return (
+      <div>
+        <div>
+          <ImSpinner8 className="text-5xl animate-spin" />
+        </div>
+      </div>
+    );
+  }
+
+  return <div>Hello World</div>;
 }
 
 export default App;
