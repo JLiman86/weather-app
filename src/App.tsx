@@ -99,7 +99,21 @@ function App() {
   return (
     <div className="h-screen bg-gradientBg bg-center bg-no-repeat bg-cover flex justify-center items-center p-4">
       <div className="max-w-[450px] h-[500px] w-full   ">
-        <div className="bg-black/20 rounded-full mb-4 px-4 py-4">tgrtgtr</div>
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className="bg-black/20 rounded-full mb-4 p-2 flex items-center"
+        >
+          <input
+            className="placeholder:text-gray-300 placeholder:text-sm outline-none bg-transparent px-4 flex-1"
+            placeholder="Search by city or country"
+            type="text"
+            name=""
+            id=""
+          />
+          <button className="px-7 py-3 bg-blue-500 rounded-3xl text-2xl active:scale-95">
+            <IoMdSearch />
+          </button>
+        </form>
         <div className="bg-black/20 rounded-2xl px-4 py-8">
           <div className="flex gap-6 items-center">
             <div className="text-8xl">{icon}</div>
