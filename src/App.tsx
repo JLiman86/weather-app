@@ -119,25 +119,25 @@ function App() {
 
   switch (data.weather[0].main) {
     case "Clouds":
-      icon = <IoMdCloudy />;
+      icon = <IoMdCloudy className="text-blue-500" />;
       break;
     case "Haze":
-      icon = <BsCloudHaze2Fill />;
+      icon = <BsCloudHaze2Fill className="text-white" />;
       break;
     case "Rain":
-      icon = <IoMdRainy />;
+      icon = <IoMdRainy className="text-blue-500" />;
       break;
     case "Clear":
       icon = <IoMdSunny className="text-yellow-300" />;
       break;
     case "Drizzle":
-      icon = <BsCloudDrizzleFill />;
+      icon = <BsCloudDrizzleFill className="text-blue-500" />;
       break;
     case "Snow":
-      icon = <IoMdSnow />;
+      icon = <IoMdSnow className="text-white" />;
       break;
     case "Thunderstorm":
-      icon = <IoMdThunderstorm />;
+      icon = <IoMdThunderstorm className="text-gray-900" />;
       break;
   }
 
@@ -147,7 +147,7 @@ function App() {
     <div className="h-screen bg-gradientBg bg-center bg-no-repeat bg-cover flex justify-center items-center p-4">
       <div className="max-w-[450px] w-full">
         {errorMsg ? (
-          <div className="bg-black/20 rounded-full mb-4 p-5 text-red-400 font-medium text-center">
+          <div className="bg-black/20 rounded-full mb-4 p-5 text-red-500 font-medium text-center capitalize">
             {errorMsg.response.data.message}
           </div>
         ) : (
