@@ -1,30 +1,18 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import iconSwitcher from "./utils/iconSwitcher";
 
-import {
-  IoMdSunny,
-  IoMdRainy,
-  IoMdCloudy,
-  IoMdSnow,
-  IoMdThunderstorm,
-  IoMdSearch,
-} from "react-icons/io";
+import { IoMdSearch } from "react-icons/io";
 
-import {
-  BsCloudHaze2Fill,
-  BsCloudDrizzleFill,
-  BsEye,
-  BsWater,
-  BsThermometer,
-  BsWind,
-} from "react-icons/bs";
+import { BsEye, BsWater, BsThermometer, BsWind } from "react-icons/bs";
 
 import { TbTemperatureCelsius } from "react-icons/tb";
 import { ImSpinner8 } from "react-icons/im";
+import Spinner from "./components/Spinner";
 
 const APIkey = "7478ace9dbf0d1f0e01be727c41388c6";
 
-type WeatherTypes = {
+type WeatherType = {
   wind: {
     speed: number;
   };
@@ -50,7 +38,7 @@ type ErrorType = {
 };
 
 function App() {
-  const [data, setData] = useState<null | WeatherTypes>(null);
+  const [data, setData] = useState<null | WeatherType>(null);
   const [location, setLocation] = useState("osieka");
   const [inputValue, setInputValue] = useState("");
   const [animate, setAnimate] = useState(false);
@@ -105,43 +93,16 @@ function App() {
   }, [location]);
 
   if (!data) {
-    return (
-      <div className="h-screen bg-gradientBg bg-center bg-no-repeat bg-cover flex justify-center items-center">
-        <div>
-          <ImSpinner8 className="text-5xl animate-spin text-white" />
-        </div>
-      </div>
-    );
+    return <Spinner />;
   }
 
-  let icon = <IoMdSunny />;
   const celsius = (data.main.temp - 273.15).toFixed(1);
 
-  switch (data.weather[0].main) {
-    case "Clouds":
-      icon = <IoMdCloudy className="text-blue-500" />;
-      break;
-    case "Haze":
-      icon = <BsCloudHaze2Fill className="text-white" />;
-      break;
-    case "Rain":
-      icon = <IoMdRainy className="text-blue-500" />;
-      break;
-    case "Clear":
-      icon = <IoMdSunny className="text-yellow-300" />;
-      break;
-    case "Drizzle":
-      icon = <BsCloudDrizzleFill className="text-blue-500" />;
-      break;
-    case "Snow":
-      icon = <IoMdSnow className="text-white" />;
-      break;
-    case "Thunderstorm":
-      icon = <IoMdThunderstorm className="text-gray-900" />;
-      break;
-  }
-
   const date = new Date();
+
+  const icon = iconSwitcher(data.weather[0].main);
+
+  console.log(icon);
 
   return (
     <div className="h-screen bg-gradientBg bg-center bg-no-repeat bg-cover flex justify-center items-center p-4">
@@ -221,7 +182,7 @@ function App() {
                     Feels like
                     <span className="relative ml-2">
                       {(data.main.feels_like - 273.15).toFixed(0)}
-                      <div className="absolute top-0 left-[22px]">
+                      <div className="absolute top-0 right-[-20px]">
                         <TbTemperatureCelsius />
                       </div>
                     </span>
