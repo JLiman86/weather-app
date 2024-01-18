@@ -2,6 +2,10 @@
 
 ## TypeScript, React, TailwindCSS
 
-Used hooks:
--useState()
--useEffect()
+<div>
+  Used hooks:
+  <ul>
+    <li>useState()</li>
+    <li>useEffect()</li>
+  </ul>
+</div>
